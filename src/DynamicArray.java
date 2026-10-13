@@ -63,6 +63,22 @@ public class DynamicArray {
         return -1;
     }
 
+    /** Sorts the array, then returns the index of a value using binary search, or -1. */
+    public int binarySearch(int value) {
+        sort();
+        lastSteps = 0;
+        int low = 0;
+        int high = size - 1;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            lastSteps++;
+            if (data[mid] == value) return mid;
+            if (data[mid] < value) low = mid + 1;
+            else high = mid - 1;
+        }
+        return -1;
+    }
+
     public int[] toArray() { return Arrays.copyOf(data, size); }
 
     public void sort() { Arrays.sort(data, 0, size); }
