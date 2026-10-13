@@ -63,6 +63,20 @@ public class DynamicArray {
         return -1;
     }
 
+    /** Binary search. Array must be sorted. Returns index or -1. O(log n). */
+    public int binarySearch(int value) {
+        lastSteps = 0;
+        int low = 0, high = size - 1;
+        while (low <= high) {
+            lastSteps++;
+            int mid = (low + high) / 2;
+            if (data[mid] == value) return mid;
+            if (data[mid] < value) low = mid + 1;
+            else high = mid - 1;
+        }
+        return -1;
+    }
+
     public int[] toArray() { return Arrays.copyOf(data, size); }
 
     public void sort() { Arrays.sort(data, 0, size); }
