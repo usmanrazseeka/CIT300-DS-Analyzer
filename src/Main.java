@@ -8,6 +8,7 @@ public class Main {
     // Shared objects so data stays between menu visits
     private static final ActionStack stack = new ActionStack();          // Simrana
     private static final LinkedListManager linkedList = new LinkedListManager(); // Afra
+    private static final DynamicArray array = new DynamicArray(10);      // Sahani
 
     /** Safe integer input - never crashes on bad input. */
     public static int readInt(Scanner sc, String prompt) {
@@ -31,6 +32,47 @@ public class Main {
 
     private static void comingSoon(String name) {
         System.out.println(name + " module is not available yet.");
+    }
+
+    // ---------- Array submenu (uses Sahani's DynamicArray) ----------
+    private static void arrayMenu(Scanner sc) {
+        while (true) {
+            System.out.println("\n--------------- ARRAY OPERATIONS ------------");
+            System.out.println("1. Append\n2. Insert at index\n3. Delete at index");
+            System.out.println("4. Search (Linear)\n5. Display\n6. Return to Main Menu");
+            int c = readInt(sc, "Enter your choice: ");
+            switch (c) {
+                case 1:
+                    array.append(readInt(sc, "Value: "));
+                    System.out.println("Value appended.");
+                    break;
+                case 2:
+                    int idx = readInt(sc, "Index (0 to " + array.size() + "): ");
+                    int val = readInt(sc, "Value: ");
+                    System.out.println(array.insert(idx, val)
+                            ? "Inserted. Elements shifted: " + array.lastSteps
+                            : "Invalid index.");
+                    break;
+                case 3:
+                    if (array.isEmpty()) { System.out.println("Array is empty. Nothing to delete."); break; }
+                    int d = readInt(sc, "Index to delete (0 to " + (array.size() - 1) + "): ");
+                    System.out.println(array.deleteAt(d)
+                            ? "Deleted. Elements shifted: " + array.lastSteps
+                            : "Invalid index.");
+                    break;
+                case 4:
+                    if (array.isEmpty()) { System.out.println("Array is empty."); break; }
+                    int target = readInt(sc, "Value to search: ");
+                    int found = array.indexOf(target);
+                    System.out.println(found >= 0 ? "Found at index " + found : "Not found");
+                    System.out.println("Steps: " + array.lastSteps);
+                    results.add("Array linear search for " + target + " -> steps: " + array.lastSteps);
+                    break;
+                case 5: array.display(); break;
+                case 6: return;
+                default: System.out.println("Invalid choice.");
+            }
+        }
     }
 
     // ---------- Stack submenu (uses Simrana's ActionStack) ----------
@@ -89,7 +131,7 @@ public class Main {
             int choice = readInt(sc, "Enter your choice: ");
 
             switch (choice) {
-                case 1: comingSoon("Array"); break;        // Member 1 - not pushed yet
+                case 1: arrayMenu(sc); break;              // Sahani
                 case 2: stackMenu(sc); break;
                 case 3: comingSoon("Queue"); break;        // Simrana - not pushed yet
                 case 4: linkedListMenu(sc); break;
