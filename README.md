@@ -11,10 +11,10 @@ compare BFS vs DFS traversal, and view steps / execution time for each operation
 
 | Student Name | Student ID | Assigned Responsibility |
 |---|---|---|
-| [FULL NAME OF SAHANI] | 23DA2-0924 | Array and Searching |
-| [FULL NAME OF SIMRANA] | 23DA2-0665 | Stack and Queue |
-| [FULL NAME OF AFRA] | 23DA2-1145 | Linked List |
-| [FULL NAME OF RAZEEKA] | 23DA2-0976 | Group Leader – Graph, Performance Comparison, Main Menu, Integration and Testing |
+| [SAHANI] | 23DA2-0924 | Array and Searching |
+| [ SIMRANA] | 23DA2-0665 | Stack and Queue |
+| [AFRA] | 23DA2-1145 | Linked List |
+| [RAZEEKA] | 23DA2-0976 | Group Leader – Graph, Performance Comparison, Main Menu, Integration and Testing |
 
 ## Individual Contributions
 
