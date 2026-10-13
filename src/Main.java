@@ -100,8 +100,7 @@ public class Main {
     private static void linkedListMenu(Scanner sc) {
         while (true) {
             System.out.println("\n--------------- LINKED LIST OPERATIONS ------------");
-            System.out.println("1. Insert\n2. Delete\n3. Display\n4. Return to Main Menu");
-            // TODO: add Search once LinkedListManager has a search method
+            System.out.println("1. Insert\n2. Delete\n3. Search\n4. Display\n5. Return to Main Menu");
             int c = readInt(sc, "Enter your choice: ");
             switch (c) {
                 case 1:
@@ -110,8 +109,13 @@ public class Main {
                     results.add("Linked List insert: " + e);
                     break;
                 case 2: linkedList.removeElement(readText(sc, "Element to delete: ")); break;
-                case 3: linkedList.displayList(); break;
-                case 4: return;
+                case 3:
+                    String s = readText(sc, "Element to search: ");
+                    linkedList.searchElement(s);
+                    results.add("Linked List search for " + s);
+                    break;
+                case 4: linkedList.displayList(); break;
+                case 5: return;
                 default: System.out.println("Invalid choice.");
             }
         }
@@ -135,7 +139,7 @@ public class Main {
                 case 2: stackMenu(sc); break;
                 case 3: comingSoon("Queue"); break;        // Simrana - not pushed yet
                 case 4: linkedListMenu(sc); break;
-                case 5: comingSoon("Searching"); break;    // Member 1 - not pushed yet
+                case 5: SearchOperations.run(sc, array); break;
                 case 6: graph.menu(sc); break;
                 case 7: PerformanceAnalyzer.run(sc, graph); break;
                 case 8:
