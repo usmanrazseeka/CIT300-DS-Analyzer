@@ -1,4 +1,4 @@
-
+ÿþ
 package structures;
 
 import java.util.Stack;
@@ -43,12 +43,8 @@ public class ActionStack {
         System.out.println("\n--- Recent Actions (most recent first) ---");
 
         for (int i = actions.size() - 1; i >= 0; i--) {
-            System.out.println(actions.get(i));
-        }
-    }
-
-    // Check whether the stack is empty
+            System.out.println(actions.get(i));ether the stack is empty
     public boolean isEmpty() {
         return actions.isEmpty();
     }
-}
+}
