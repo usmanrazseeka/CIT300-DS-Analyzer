@@ -1,5 +1,6 @@
 import java.util.*;
 import structures.ActionStack;
+import structures.ActionQueue;
 
 /** Member 5: Main menu and integration. */
 public class Main {
@@ -7,6 +8,7 @@ public class Main {
 
     // Shared objects so data stays between menu visits
     private static final ActionStack stack = new ActionStack();          // Simrana
+    private static final ActionQueue queue = new ActionQueue();          // Simrana
     private static final LinkedListManager linkedList = new LinkedListManager(); // Afra
     private static final DynamicArray array = new DynamicArray(10);      // Sahani
 
@@ -79,8 +81,7 @@ public class Main {
     private static void stackMenu(Scanner sc) {
         while (true) {
             System.out.println("\n--------------- STACK OPERATIONS ------------");
-            System.out.println("1. Push\n2. Pop\n3. Display\n4. Return to Main Menu");
-            // TODO: add Peek once ActionStack has a peekAction() method
+            System.out.println("1. Push\n2. Pop\n3. Peek\n4. Display\n5. Return to Main Menu");
             int c = readInt(sc, "Enter your choice: ");
             switch (c) {
                 case 1:
@@ -89,8 +90,30 @@ public class Main {
                     results.add("Stack push: " + a);
                     break;
                 case 2: stack.popAction(); break;
-                case 3: stack.displayActions(); break;
-                case 4: return;
+                case 3: stack.peekAction(); break;
+                case 4: stack.displayActions(); break;
+                case 5: return;
+                default: System.out.println("Invalid choice.");
+            }
+        }
+    }
+
+    // ---------- Queue submenu (uses Simrana's ActionQueue) ----------
+    private static void queueMenu(Scanner sc) {
+        while (true) {
+            System.out.println("\n--------------- QUEUE OPERATIONS ------------");
+            System.out.println("1. Enqueue\n2. Dequeue\n3. Peek/Front\n4. Display\n5. Return to Main Menu");
+            int c = readInt(sc, "Enter your choice: ");
+            switch (c) {
+                case 1:
+                    String a = readText(sc, "Action to enqueue: ");
+                    queue.enqueueAction(a);
+                    results.add("Queue enqueue: " + a);
+                    break;
+                case 2: queue.dequeueAction(); break;
+                case 3: queue.peekAction(); break;
+                case 4: queue.displayActions(); break;
+                case 5: return;
                 default: System.out.println("Invalid choice.");
             }
         }
@@ -137,9 +160,9 @@ public class Main {
             switch (choice) {
                 case 1: arrayMenu(sc); break;              // Sahani
                 case 2: stackMenu(sc); break;
-                case 3: comingSoon("Queue"); break;        // Simrana - not pushed yet
+                case 3: queueMenu(sc); break;
                 case 4: linkedListMenu(sc); break;
-                case 5: SearchOperations.run(sc, array); break;
+                case 5: comingSoon("Searching"); break;    // Sahani - Binary Search pending
                 case 6: graph.menu(sc); break;
                 case 7: PerformanceAnalyzer.run(sc, graph); break;
                 case 8:
