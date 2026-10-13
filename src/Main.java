@@ -32,10 +32,6 @@ public class Main {
         }
     }
 
-    private static void comingSoon(String name) {
-        System.out.println(name + " module is not available yet.");
-    }
-
     // ---------- Array submenu (uses Sahani's DynamicArray) ----------
     private static void arrayMenu(Scanner sc) {
         while (true) {
@@ -74,6 +70,45 @@ public class Main {
                 case 6: return;
                 default: System.out.println("Invalid choice.");
             }
+        }
+    }
+
+    // ---------- Searching submenu: Linear vs Binary (uses DynamicArray) ----------
+    private static void searchMenu(Scanner sc) {
+        while (true) {
+            System.out.println("\n--------------- SEARCHING OPERATIONS ------------");
+            System.out.println("1. Linear Search\n2. Binary Search\n3. Compare Linear vs Binary\n4. Return to Main Menu");
+            int c = readInt(sc, "Enter your choice: ");
+            if (c == 4) return;
+            if (c < 1 || c > 3) { System.out.println("Invalid choice."); continue; }
+            if (array.isEmpty()) { System.out.println("Array is empty. Add values in Array Operations first."); continue; }
+
+            int target = readInt(sc, "Value to search: ");
+            long linSteps = 0, binSteps = 0;
+
+            if (c == 1 || c == 3) {
+                long t = System.nanoTime();
+                int idx = array.indexOf(target);
+                long time = System.nanoTime() - t;
+                linSteps = array.lastSteps;
+                System.out.println("Linear Search: " + (idx >= 0 ? "found at index " + idx : "not found")
+                        + " | steps: " + linSteps + " | time: " + time + " ns");
+                results.add("Linear search " + target + " -> steps: " + linSteps);
+            }
+            if (c == 2 || c == 3) {
+                // Binary search needs sorted data, so work on a sorted copy
+                DynamicArray copy = new DynamicArray(array.size());
+                for (int v : array.toArray()) copy.append(v);
+                copy.sort();
+                long t = System.nanoTime();
+                int idx = copy.binarySearch(target);
+                long time = System.nanoTime() - t;
+                binSteps = copy.lastSteps;
+                System.out.println("Binary Search (on sorted copy): " + (idx >= 0 ? "found at index " + idx : "not found")
+                        + " | steps: " + binSteps + " | time: " + time + " ns");
+                results.add("Binary search " + target + " -> steps: " + binSteps);
+            }
+            if (c == 3) System.out.println("Linear O(n) took " + linSteps + " steps, Binary O(log n) took " + binSteps + " steps.");
         }
     }
 
@@ -162,7 +197,7 @@ public class Main {
                 case 2: stackMenu(sc); break;
                 case 3: queueMenu(sc); break;
                 case 4: linkedListMenu(sc); break;
-                case 5: comingSoon("Searching"); break;    // Sahani - Binary Search pending
+                case 5: searchMenu(sc); break;
                 case 6: graph.menu(sc); break;
                 case 7: PerformanceAnalyzer.run(sc, graph); break;
                 case 8:
